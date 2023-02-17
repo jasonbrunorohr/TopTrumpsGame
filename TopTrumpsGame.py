@@ -46,7 +46,7 @@ class Player():
         if self.won_last is None:
             print(self.name + " starts the game.")
             stat = input(self.name + " choose a stat you want to trump with: ")
-            if stat not in self.cards[1].keys():
+            if stat not in self.cards[0].keys():
                 stat = input("I think you misspelled that. Go again: ")
             self.won_last = False
             other_player.won_last = False
@@ -68,12 +68,15 @@ class Player():
             self.cards.append(self.cards.pop(0))
             self.won_last = True
             other_player.won_last = False
+            print(f"{other_player.name} had a {str(other_card_stat)}.")
         elif self_card_stat < other_card_stat:
             print(f"{other_player.name} wins this round!")
             other_player.cards.append(self.cards.pop(0))
             other_player.cards.append(other_player.cards.pop(0))
             self.won_last = False
             other_player.won_last = True
+            print(f"{other_player.name} had a {str(other_card_stat)}.")
+            
         else:
             print("It's a tie, you've got to choose again...")
             self.play(other_player)
@@ -107,13 +110,13 @@ def shuffled_deck(unshuffled_deck, mainplayer, npc):
     print("Here's the deck for you " + mainplayer.name + " and here is yours " + npc.name + ".")
     return (deck1, deck2)
 
-shuffled_deck(spaceships, main_player, npc)    
+   
 
 
 
 #function to loop to keep playing until one of the players has all the cards
 def gameplay(main_player, npc):
-
+    shuffled_deck(spaceships, main_player, npc)
     while len(main_player.cards) > 0 and len(npc.cards) >0:
             main_player.play(npc)
 
